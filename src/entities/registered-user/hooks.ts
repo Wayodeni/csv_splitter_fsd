@@ -1,16 +1,14 @@
-import { useState } from "react";
-import { getRegisteredUsers, getSections } from "./api";
+import { getRegisteredUsers, sendRegisteredUsers } from "./api";
+import { useUsersStore } from "./store";
 
-export const useSendCSV = (file: File): [() => void, unknown] => {
-    const [response, setResponse] = useState<unknown>();
-    const request = () => getRegisteredUsers(file).then(res => setResponse(res))
-    return [request, response]
+export const useSendCSV = (file: File): () => Promise<void> => {
+    const { setUsers } = useUsersStore();
+    const request = async () => await sendRegisteredUsers(file).then(res => setUsers(res.data))
+    return request
 }
 
-export const useGetSections = (): [() => void, string[]] => {
-    const [response, setResponse] = useState<string[]>([]);
-    const request = () => {
-        getSections().then(res => setResponse(res.data))
-    };
-    return [request, response]
+export const useGetRegisteredUsers = (): (section: string) => Promise<void> => {
+    const { setUsers } = useUsersStore();
+    const request = async (section: string) => await getRegisteredUsers(section).then(res => setUsers(res.data))
+    return request
 }
