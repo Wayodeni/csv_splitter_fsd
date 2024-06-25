@@ -1,14 +1,18 @@
 import { FC } from "react";
-import { Button } from "simplify-dev";
+import { Button, ButtonProps } from "simplify-dev";
 import { useGetRegisteredUsers } from "../entities/registered-user/hooks";
 
 type GetUsersButtonProps = {
-    section: string
-}
+    section: string;
+} & Omit<ButtonProps, 'id' | 'onClick' | 'children'>
 
 export const GetUsersButton:FC<GetUsersButtonProps> = ({
-    section
+    section,
+    ...props
 }) => {
     const getUsers = useGetRegisteredUsers();
-    return <Button id={section} onClick={() => getUsers(section)}>{section}</Button>
+    const onClick = () => {
+        getUsers(section);
+    }
+    return <Button id={section} onClick={onClick} {...props as ButtonProps}>{section}</Button>
 }
