@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
 import { Box, Button, FileUploader } from "simplify-dev";
 import { useSendCSV } from "../entities/registered-user/hooks";
-import { useGetSections } from "../entities/section/hooks";
+import { useState } from "react";
 
 export const Uploader = () => {
     const [files, setFiles] = useState<File[]>([]);
 
     const sendCSV = useSendCSV(files[0]);
-    const getSections = useGetSections();
-
-    useEffect(() => void getSections(), []);
 
     const sendCSVAndRenderSections = () => {
-        sendCSV().then(() => getSections())
+        sendCSV()
     }
  
     return <Box className="flex flex-col gap-4 max-w-80">
