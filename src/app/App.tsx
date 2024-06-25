@@ -1,4 +1,5 @@
-import { Form } from "../pages/Form"
+import { FileUploader } from "../pages/FileUploader";
+import { Table } from "../pages/Table"
 import "./index.css"
 import {
     createBrowserRouter,
@@ -8,8 +9,12 @@ import {
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <Form />,
+      element: <Table />,
     },
+    {
+      path: "/uploader",
+      element: <FileUploader/>
+    }
   ]);
 
 export const App = () => {

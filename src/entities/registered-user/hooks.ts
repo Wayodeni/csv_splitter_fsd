@@ -7,8 +7,8 @@ export const useSendCSV = (file: File): () => Promise<void> => {
     return request
 }
 
-export const useGetRegisteredUsers = (): (section: string) => Promise<void> => {
+export const useGetRegisteredUsers = (): (section?: string) => Promise<void> => {
     const { setUsers } = useUsersStore();
-    const request = async (section: string) => await getRegisteredUsers(section).then(res => setUsers(res.data))
+    const request = async (section: string = '') => await getRegisteredUsers(section).then(res => setUsers(res.data))
     return request
 }
