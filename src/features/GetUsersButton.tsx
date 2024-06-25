@@ -4,7 +4,8 @@ import { useGetRegisteredUsers } from "../entities/registered-user/hooks";
 
 type GetUsersButtonProps = {
     section: string;
-} & Omit<ButtonProps, 'id' | 'onClick' | 'children'>
+    onClick: () => void;
+} & Omit<ButtonProps, 'id' | 'children'>
 
 export const GetUsersButton:FC<GetUsersButtonProps> = ({
     section,
@@ -13,6 +14,7 @@ export const GetUsersButton:FC<GetUsersButtonProps> = ({
     const getUsers = useGetRegisteredUsers();
     const onClick = () => {
         getUsers(section);
+        props.onClick?.();
     }
-    return <Button id={section} onClick={onClick} {...props as ButtonProps}>{section}</Button>
+    return <Button {...props as ButtonProps} id={section} onClick={onClick}>{section}</Button>
 }
